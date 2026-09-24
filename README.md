@@ -2,7 +2,7 @@
 
 A simple web application for renting daily repair tools in Denmark, featuring a MitID verification flow.
 
-## 🎥 Project Walkthrough
+## 🎥 Project Walkthrough: My Tool Rental Project_Vid.mp4
 
 
 

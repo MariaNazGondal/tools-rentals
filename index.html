@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VærktøjLeje - Daily Repair Tool Rentals</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#1E3A8A', // Deep trustworthy blue
+                            light: '#DBEAFE', // Soft blue background
+                            gray: '#F3F4F6', // Soft gray
+                            mitid: '#0055D4', // MitID brand color approximation
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for a polished look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        
+        /* Modal animation */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 300ms, transform 300ms;
+        }
+    </style>
+</head>
+<body class="font-sans bg-brand-gray text-gray-800 antialiased flex flex-col min-h-screen">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-wrench text-3xl text-brand-blue"></i>
+                    <span class="font-bold text-2xl text-brand-blue tracking-tight">VærktøjLeje</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Home</a>
+                    <a href="#tools" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">Rent Tools</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-brand-blue font-medium transition-colors">How it Works</a>
+                </div>
+                <div>
+                    <a href="#tools" class="bg-brand-blue text-white px-5 py-2.5 rounded-lg font-medium hover:bg-blue-800 transition-colors shadow-sm">
+                        Start Renting
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative bg-brand-blue overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <!-- Simple pattern overlay -->
+            <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M0 40V0H40" fill="none" stroke="white" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern)"/>
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-10 text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                Your Daily Repair Partner <br class="hidden md:block"/> in Denmark
+            </h1>
+            <p class="text-lg md:text-xl text-blue-100 mb-10 max-w-2xl mx-auto font-light">
+                Why buy when you can rent? Access high-quality tools for your home repairs at nominal daily charges. Simple, sustainable, and securely verified with MitID.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#tools" class="bg-white text-brand-blue px-8 py-3.5 rounded-xl font-semibold hover:bg-gray-50 transition-colors shadow-lg text-lg flex items-center justify-center gap-2">
+                    Browse Tools <i class="ph ph-arrow-right"></i>
+                </a>
+                <a href="#how-it-works" class="border border-blue-300 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-blue-800 transition-colors text-lg flex items-center justify-center">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="py-20 flex-grow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Available Tools</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Pick the tools you need for your DIY project. All rentals are charged per day.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="tool-grid">
+                <!-- Tool Cards will be injected here via JS to keep the HTML clean -->
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-16">How it Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-brand-light text-brand-blue rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm">
+                        <i class="ph ph-mouse-left"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">1. Select your tool</h3>
+                    <p class="text-gray-600 leading-relaxed">Browse our catalog and pick the right tool for your specific home repair or DIY project.</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-brand-light text-brand-blue rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm">
+                        <i class="ph ph-identification-card"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">2. Verify with MitID</h3>
+                    <p class="text-gray-600 leading-relaxed">For security, we require a Danish CPR number verified securely via MitID. Only available in Denmark.</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-brand-light text-brand-blue rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm">
+                        <i class="ph ph-toolbox"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">3. Pick up & Repair</h3>
+                    <p class="text-gray-600 leading-relaxed">Collect your tool from our central Copenhagen hub, complete your project, and return it safely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="ph ph-wrench text-2xl text-white"></i>
+                    <span class="font-bold text-xl text-white tracking-tight">VærktøjLeje</span>
+                </div>
+                <p class="text-sm text-gray-400">Making DIY projects affordable and sustainable for everyone in Denmark.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#tools" class="hover:text-white transition-colors">Rent Tools</a></li>
+                    <li><a href="#how-it-works" class="hover:text-white transition-colors">How it Works</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-4">Legal</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li class="flex items-center gap-2 mt-4 text-brand-light">
+                        <i class="ph ph-map-pin"></i> Available in Denmark Only
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-gray-800 text-sm text-center">
+            &copy; 2026 VærktøjLeje. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Modal Overlay (Hidden by default) -->
+    <div id="rental-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <!-- Backdrop -->
+        <div id="modal-backdrop" class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        
+        <!-- Modal Content -->
+        <div id="modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 relative z-10 transform scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors focus:outline-none">
+                <i class="ph ph-x text-lg"></i>
+            </button>
+
+            <div class="p-8 overflow-y-auto">
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-light text-brand-blue mb-4">
+                        <i class="ph ph-shopping-cart text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900" id="modal-title">Rent Tool</h3>
+                    <p class="text-brand-blue font-semibold mt-1" id="modal-price">0 DKK / day</p>
+                </div>
+
+                <!-- Form Section -->
+                <div id="rental-form-section">
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
+                        <h4 class="text-sm font-semibold text-brand-blue mb-1 flex items-center gap-2">
+                            <i class="ph ph-info"></i> Rental Terms
+                        </h4>
+                        <p class="text-xs text-blue-800 leading-relaxed">
+                            This service is strictly available to residents of Denmark. To proceed with the nominal daily charge, you must provide your CPR number and securely verify your identity using MitID.
+                        </p>
+                    </div>
+
+                    <form id="rental-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" required placeholder="Jens Hansen" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">CPR Number</label>
+                            <input type="text" id="cpr-input" required placeholder="DDMMYY-XXXX" pattern="\d{6}-\d{4}" title="Format: DDMMYY-XXXX" class="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition-all font-mono">
+                            <p class="text-xs text-gray-500 mt-1">Format: DDMMYY-XXXX</p>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-gray-100 mt-6">
+                            <button type="submit" class="w-full bg-brand-mitid text-white font-medium rounded-lg px-4 py-3.5 flex items-center justify-center gap-3 hover:bg-blue-700 transition-colors shadow-md focus:ring-4 focus:ring-blue-300">
+                                <!-- Simulated MitID logo text -->
+                                <span class="font-bold text-lg tracking-wide border border-white px-1.5 rounded-sm bg-white text-brand-mitid leading-none">MitID</span>
+                                <span>Verify & Confirm Rental</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Success Message Section (Hidden initially) -->
+                <div id="success-section" class="hidden text-center py-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4 mx-auto">
+                        <i class="ph ph-check-circle text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Verification Successful!</h3>
+                    <p class="text-gray-600 text-sm mb-6">Your identity has been verified via MitID and your rental is confirmed. Please check your email for pickup instructions.</p>
+                    <button onclick="closeModal()" class="w-full bg-gray-900 text-white font-medium rounded-lg px-4 py-3 hover:bg-gray-800 transition-colors">
+                        Done
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for the tools
+        const tools = [
+            { id: 1, name: "Power Drill", price: 50, icon: "ph-drill", description: "Professional grade cordless drill. Includes a basic bit set." },
+            { id: 2, name: "Claw Hammer", price: 15, icon: "ph-hammer", description: "Heavy-duty steel claw hammer with shock-absorbing grip." },
+            { id: 3, name: "Wrench Set", price: 25, icon: "ph-wrench", description: "12-piece adjustable metric wrench set in a durable case." },
+            { id: 4, name: "Step Ladder", price: 40, icon: "ph-ladder-simple", description: "Lightweight aluminum step ladder, up to 150kg capacity." },
+            { id: 5, name: "Circular Saw", price: 60, icon: "ph-circle-half", description: "15-Amp circular saw for clean, straight cuts through wood." },
+            { id: 6, name: "Screwdriver Kit", price: 20, icon: "ph-screwdriver", description: "Magnetic screwdriver set with flathead and Phillips heads." }
+        ];
+
+        // Function to render tools to the grid
+        function renderTools() {
+            const grid = document.getElementById('tool-grid');
+            let html = '';
+            
+            tools.forEach(tool => {
+                html += `
+                    <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col group">
+                        <div class="h-48 bg-gray-50 flex items-center justify-center border-b border-gray-100 group-hover:bg-brand-light transition-colors duration-300">
+                            <i class="ph ${tool.icon} text-7xl text-gray-400 group-hover:text-brand-blue transition-colors duration-300"></i>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-900">${tool.name}</h3>
+                                <span class="bg-blue-50 text-brand-blue text-sm font-semibold px-2.5 py-1 rounded-md border border-blue-100">
+                                    ${tool.price} DKK/day
+                                </span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-6 flex-grow">${tool.description}</p>
+                            <button onclick="openModal('${tool.name}', ${tool.price})" class="w-full bg-white border-2 border-brand-blue text-brand-blue font-semibold rounded-xl px-4 py-2.5 hover:bg-brand-blue hover:text-white transition-colors duration-300 flex items-center justify-center gap-2">
+                                Rent Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+
+        // Modal Elements
+        const modal = document.getElementById('rental-modal');
+        const backdrop = document.getElementById('modal-backdrop');
+        const content = document.getElementById('modal-content');
+        const titleEl = document.getElementById('modal-title');
+        const priceEl = document.getElementById('modal-price');
+        const formSection = document.getElementById('rental-form-section');
+        const successSection = document.getElementById('success-section');
+        const form = document.getElementById('rental-form');
+        const cprInput = document.getElementById('cpr-input');
+
+        // Function to open the modal
+        function openModal(toolName, price) {
+            // Set content
+            titleEl.textContent = `Rent ${toolName}`;
+            priceEl.textContent = `${price} DKK / day`;
+            
+            // Reset state
+            form.reset();
+            formSection.classList.remove('hidden');
+            successSection.classList.add('hidden');
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            
+            // Trigger animation frame for transitions
+            requestAnimationFrame(() => {
+                backdrop.classList.remove('opacity-0');
+                backdrop.classList.add('opacity-100');
+                content.classList.remove('opacity-0', 'scale-95');
+                content.classList.add('opacity-100', 'scale-100');
+            });
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            // Animate out
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            content.classList.remove('opacity-100', 'scale-100');
+            content.classList.add('opacity-0', 'scale-95');
+            
+            // Hide after animation finishes
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // Format CPR input as user types (DDMMYY-XXXX)
+        cprInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+            if (value.length > 6) {
+                value = value.substring(0, 6) + '-' + value.substring(6, 10);
+            }
+            e.target.value = value;
+        });
+
+        // Handle form submission (Simulate MitID process)
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Loading state
+            submitBtn.innerHTML = `<i class="ph ph-spinner animate-spin text-xl"></i> Verifying...`;
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-80');
+
+            // Simulate network request / MitID verification delay
+            setTimeout(() => {
+                // Switch to success view
+                formSection.classList.add('hidden');
+                successSection.classList.remove('hidden');
+                
+                // Reset button for next time
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-80');
+            }, 1500);
+        }
+
+        // Close modal when clicking outside
+        backdrop.addEventListener('click', closeModal);
+        
+        // Handle Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // Initialize App
+        window.onload = () => {
+            renderTools();
+        };
+    </script>
+</body>
+</html>

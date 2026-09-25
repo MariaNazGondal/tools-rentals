@@ -3,6 +3,7 @@
 A modern, responsive web application designed for renting daily repair tools locally in Denmark. Built with a focus on clean design, intuitive user experience, and secure verification via a simulated MitID/CPR checkout flow.
 
 ## 🎥 Project Walkthrough
+[Watch My Tool Rental Project Video](./My%20Tool%20Rental%20Project_Vid.mp4)
 
 
 
